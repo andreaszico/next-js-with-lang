@@ -1,17 +1,9 @@
-import { getDictionary } from "@/shared/locale/dictionaries";
+import Carousel from "./__component/Carousel";
 
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ lang: string }>;
-}) {
-  const { lang } = await params;
-  const dict = await getDictionary(lang as 'en' | 'fr');
-
+export default async function HomePage() {
   return (
     <div>
-      <h1>{dict.home.title}</h1>
-      <p>{dict.home.description}</p>
+      <Carousel />
     </div>
   );
 }

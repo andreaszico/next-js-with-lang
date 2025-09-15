@@ -9,3 +9,11 @@ export const AppConfig = {
   defaultLocale: 'en',
   localePrefix,
 };
+
+export const Localizations = {
+  defaultLocale: 'en',
+  supportedLocales: {
+    en: 'en',
+    fr: 'fr',
+  },
+};

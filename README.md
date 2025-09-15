@@ -163,4 +163,4 @@ Below is the folder structure of the project, with explanations for each directo
 
 - Follow the coding standards defined in `.eslintrc.json` and `.prettierrc`.
 - Write tests for new features and ensure existing tests pass.
-- Submit pull requests with clear descriptions of changes.
+- Submit pull requests with clear descriptions of changes.# next-js-with-lang

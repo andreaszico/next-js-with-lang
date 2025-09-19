@@ -1,4 +1,4 @@
-import { blogPosts } from '@/lib/blogData';
+import { blogPosts } from '@/server/_data/blog';
 import { NextResponse } from 'next/server';
 
 export async function GET() {

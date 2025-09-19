@@ -1,7 +1,7 @@
 import './globals.css';
 import { AppConfig } from "@/config/app-config";
 import { NextIntlClientProvider } from "next-intl";
-import { QueryProvider } from '@/components/QueryProvider';
+import { QueryProvider } from '@/provider/QueryProvider';
 
 export async function generateStaticParams() {
   return AppConfig.locales.map((lang: string) => ({ lang }));

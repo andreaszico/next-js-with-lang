@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { useBlogPost } from "@/lib/blogService";
+import { useBlogPost } from "@/services/blog.service";
 
 export default function DetailBlog({ params }: { params: { slug: string } }) {
   const { data: post, isLoading, isError, error } = useBlogPost(params.slug);

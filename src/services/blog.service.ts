@@ -1,5 +1,5 @@
+import { BlogPost } from '@/server/_data/blog';
 import { useQuery } from '@tanstack/react-query';
-import { BlogPost } from '@/lib/blogData';
 
 // Fetch all blog posts
 export const useBlogPosts = () => {

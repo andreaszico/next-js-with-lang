@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useBlogPosts } from '@/lib/blogService';
+import { useBlogPosts } from '@/services/blog.service';
 
 export default function BlogPage() {
   const { data: posts, isLoading, isError, error } = useBlogPosts();

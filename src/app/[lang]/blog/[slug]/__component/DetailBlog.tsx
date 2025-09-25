@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { useBlogPost } from "@/lib/blogService";
 import BlogComments from "@/components/custom/BlogComments";
 import { useState } from "react";
+import { useBlogPost } from "@/services/blog.service";
 
 export default function DetailBlog({ params }: { params: { slug: string } }) {
   const { data: post, isLoading, isError, error } = useBlogPost(params.slug);
@@ -12,17 +12,19 @@ export default function DetailBlog({ params }: { params: { slug: string } }) {
     {
       id: "1",
       author: "Alice Johnson",
-      content: "Great post! I learned a lot about Next.js 15. Looking forward to trying out Turbopack.",
+      content:
+        "Great post! I learned a lot about Next.js 15. Looking forward to trying out Turbopack.",
       date: "2025-09-16",
-      likes: 5
+      likes: 5,
     },
     {
       id: "2",
       author: "Bob Smith",
-      content: "The section on React Server Components was particularly helpful. Do you have any examples of when NOT to use them?",
+      content:
+        "The section on React Server Components was particularly helpful. Do you have any examples of when NOT to use them?",
       date: "2025-09-17",
-      likes: 3
-    }
+      likes: 3,
+    },
   ]);
 
   const handleAddComment = (content: string) => {
@@ -30,10 +32,10 @@ export default function DetailBlog({ params }: { params: { slug: string } }) {
       id: (comments.length + 1).toString(),
       author: "You",
       content,
-      date: new Date().toISOString().split('T')[0],
-      likes: 0
+      date: new Date().toISOString().split("T")[0],
+      likes: 0,
     };
-    
+
     setComments([...comments, newComment]);
   };
 

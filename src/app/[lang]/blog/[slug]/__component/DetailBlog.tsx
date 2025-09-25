@@ -3,9 +3,39 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { useBlogPost } from "@/lib/blogService";
+import BlogComments from "@/components/custom/BlogComments";
+import { useState } from "react";
 
 export default function DetailBlog({ params }: { params: { slug: string } }) {
   const { data: post, isLoading, isError, error } = useBlogPost(params.slug);
+  const [comments, setComments] = useState([
+    {
+      id: "1",
+      author: "Alice Johnson",
+      content: "Great post! I learned a lot about Next.js 15. Looking forward to trying out Turbopack.",
+      date: "2025-09-16",
+      likes: 5
+    },
+    {
+      id: "2",
+      author: "Bob Smith",
+      content: "The section on React Server Components was particularly helpful. Do you have any examples of when NOT to use them?",
+      date: "2025-09-17",
+      likes: 3
+    }
+  ]);
+
+  const handleAddComment = (content: string) => {
+    const newComment = {
+      id: (comments.length + 1).toString(),
+      author: "You",
+      content,
+      date: new Date().toISOString().split('T')[0],
+      likes: 0
+    };
+    
+    setComments([...comments, newComment]);
+  };
 
   if (isLoading) {
     return (
@@ -79,8 +109,13 @@ export default function DetailBlog({ params }: { params: { slug: string } }) {
           </div>
         </header>
 
-        <div className="whitespace-pre-line">{post.content}</div>
+        <div className="whitespace-pre-line mb-12">{post.content}</div>
       </article>
+
+      {/* Comments Section */}
+      <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+        <BlogComments comments={comments} onAddComment={handleAddComment} />
+      </div>
     </div>
   );
 }

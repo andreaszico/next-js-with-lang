@@ -1,7 +1,7 @@
 import './globals.css';
 import { AppConfig } from "@/config/app-config";
 import { NextIntlClientProvider } from "next-intl";
-import { QueryProvider } from '@/provider/QueryProvider';
+import { QueryProvider } from '@/core/provider/QueryProvider';
 import { ThemeProvider } from 'next-themes';
 import Header from '@/components/custom/Header';
 

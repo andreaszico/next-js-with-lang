@@ -31,7 +31,7 @@ export default function LoginPage() {
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       // Simulate successful login
-      toast("Logged in successfully!", {
+      toast.success("Logged in successfully!", {
         description: new Date().toLocaleDateString("en-US", {
           weekday: "long",
           year: "numeric",
@@ -40,11 +40,7 @@ export default function LoginPage() {
           hour: "numeric",
           minute: "numeric",
           hour12: true,
-        }),
-        action: {
-          label: "Undo",
-          onClick: () => console.log("Login undone"),
-        },
+        })
       });
 
       // Redirect to dashboard

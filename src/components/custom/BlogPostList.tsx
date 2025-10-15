@@ -3,7 +3,7 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { BlogPost } from "@/lib/blogData";
+import { BlogPost } from "@/server/_data/blog";
 
 interface BlogPostListProps {
   posts: BlogPost[];

@@ -6,16 +6,17 @@ export async function GET(
   { params }: { params: Promise<{ slug: string }> }
 ) {
   const { slug } = await params;
-  
-  // Find the blog post by slug
+
   const post = blogPosts.find(post => post.slug === slug);
-  
+
   if (!post) {
     return NextResponse.json(
       { error: 'Post not found' },
       { status: 404 }
     );
   }
-  
-  return NextResponse.json(post);
+
+  return NextResponse.json({
+    data: post,
+  });
 }

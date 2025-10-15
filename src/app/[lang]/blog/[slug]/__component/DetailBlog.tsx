@@ -4,10 +4,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import BlogComments from "@/components/custom/BlogComments";
 import { useState } from "react";
-import { useBlogPost } from "@/services/blog.service";
+import { useBlog } from "@/features/blog/api/get-blog";
 
 export default function DetailBlog({ params }: { params: { slug: string } }) {
-  const { data: post, isLoading, isError, error } = useBlogPost(params.slug);
+  const { data, isLoading, isError, error } = useBlog({
+    blogId: params.slug,
+  });
+  
   const [comments, setComments] = useState([
     {
       id: "1",
@@ -88,7 +91,7 @@ export default function DetailBlog({ params }: { params: { slug: string } }) {
     );
   }
 
-  if (!post) {
+  if (!data) {
     notFound();
   }
 
@@ -103,15 +106,15 @@ export default function DetailBlog({ params }: { params: { slug: string } }) {
 
       <article className="prose prose-lg dark:prose-invert max-w-none">
         <header className="mb-8">
-          <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
+          <h1 className="text-3xl font-bold mb-4">{data.data.title}</h1>
           <div className="flex items-center text-gray-600 dark:text-gray-400">
-            <span>{post.date}</span>
+            <span>{data.data.date}</span>
             <span className="mx-2">•</span>
-            <span>By {post.author}</span>
+            <span>By {data.data.author}</span>
           </div>
         </header>
 
-        <div className="whitespace-pre-line mb-12">{post.content}</div>
+        <div className="whitespace-pre-line mb-12">{data.data.content}</div>
       </article>
 
       {/* Comments Section */}

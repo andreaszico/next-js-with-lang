@@ -3,19 +3,19 @@
 import { useState, useMemo } from "react";
 import BlogSearch from "@/components/custom/BlogSearch";
 import BlogPostList from "@/components/custom/BlogPostList";
-import { useBlogPosts } from "@/services/blog.service";
+import { useBlogs } from "@/features/blog/api/get-blogs";
 
 export default function BlogPage() {
-  const { data: posts, isLoading, isError, error } = useBlogPosts();
+  const { data: posts, isLoading, isError, error } = useBlogs({});
   const [searchQuery, setSearchQuery] = useState("");
 
   // Filter posts based on search query
   const filteredPosts = useMemo(() => {
     if (!posts) return [];
-    if (!searchQuery) return posts;
+    if (!searchQuery) return posts.data;
 
     const query = searchQuery.toLowerCase();
-    return posts.filter(
+    return posts.data.filter(
       (post) =>
         post.title.toLowerCase().includes(query) ||
         post.excerpt.toLowerCase().includes(query) ||

@@ -10,9 +10,6 @@ import LanguageSwitcher from "@/components/custom/LanguageSwitcher";
 
 const navigationItems = [
   { name: "Home", href: "/" },
-  { name: "Blog", href: "/blog" },
-  { name: "Dashboard", href: "/dashboard" },
-  { name: "Admin", href: "/admin/dashboard" },
 ];
 
 export default function Header() {
@@ -21,9 +18,8 @@ export default function Header() {
 
   return (
     <header className="border-b">
-      <div className="container flex h-16 items-center justify-between px-4">
+      <div className="mx-auto container flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-6">
-          {/* Mobile menu button */}
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="outline" size="icon" className="md:hidden">

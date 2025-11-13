@@ -5,7 +5,7 @@ A modern frontend for a movie reservation service built with Next.js 15, Tailwin
 ## Features
 
 ### User Authentication
-- **Sign-Up, Login, Logout**: Secure authentication using NextAuth.js with JWT.
+- **Sign-Up, Login, Logout**: Secure authentication using Better Auth with JWT integration from Spring Boot backend.
 - **Role-Based Access**:
   - **Regular Users**: Browse movies, view showtimes, reserve seats, and manage reservations.
   - **Admins**: Manage movies, showtimes, and view reservation reports.
@@ -46,7 +46,7 @@ A modern frontend for a movie reservation service built with Next.js 15, Tailwin
 - **Framework**: Next.js 15 (App Router, Server Actions)
 - **Styling**: Tailwind CSS
 - **UI Components**: shadcn/ui (Radix UI-based)
-- **Authentication**: NextAuth.js
+- **Authentication**: Better Auth (integrated with Spring Boot JWT)
 - **Database**: Prisma with PostgreSQL (via backend API)
 - **Editor**: Tiptap (for rich text in movie descriptions)
 - **Search**: TanStack Query for client-side filtering
@@ -84,7 +84,7 @@ Located in `components/ui/`:
    - `@next/core`, `next`, `react`, `react-dom`
    - `tailwindcss`, `postcss`, `autoprefixer`
    - `@radix-ui/*`, `shadcn-ui`
-   - `next-auth`
+   - `better-auth`
    - `prisma`, `@prisma/client`
    - `tiptap`, `@tiptap/react`, `@tiptap/extension-*`
    - `@tanstack/react-query`
@@ -94,8 +94,8 @@ Located in `components/ui/`:
    - Add variables:
      ```env
      NEXT_PUBLIC_API_URL=http://localhost:3000/api
-     NEXTAUTH_URL=http://localhost:3000
-     NEXTAUTH_SECRET=your_nextauth_secret
+     NEXT_PUBLIC_SPRING_BOOT_API_URL=http://localhost:8080
+     NEXT_PUBLIC_BASE_URL=http://localhost:3000
      DATABASE_URL=postgresql://user:password@localhost:5432/movies_db
      ```
 4. **Database Setup**:

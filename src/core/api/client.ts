@@ -83,13 +83,7 @@ async function fetchApi<T>(
     next,
   });
 
-  console.log(response);
-  console.log(response.ok);
-  
-
   if (!response.ok) {
-    console.log("HIT");
-    
     const message = (await response.json()).message || response.statusText;
     if (typeof window !== 'undefined') {
       toast.error(message);

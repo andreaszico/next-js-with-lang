@@ -10,29 +10,30 @@ import {
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { toast } from "sonner"
 import { useAppForm } from "@/hooks/use-app-form"
-import { LoginRequest, loginSchema } from "../api/dto"
+import { RegisterRequest, registerSchema } from "../api/dto"
 import Link from "next/link"
 
-
-export default function LoginForm() {
+export default function RegisterForm() {
   const form = useAppForm({
     defaultValues: {
+      name: "",
       email: "",
       password: "",
-    } satisfies LoginRequest as LoginRequest,
+      confirmPassword: "",
+    } satisfies RegisterRequest as RegisterRequest,
     validators: {
-      onSubmit: loginSchema,
+      onSubmit: registerSchema,
     },
     onSubmit: async ({ value }) => {
       try {
-        console.log("Logging in with:", value)
-        toast.success("Login successful!", {
+        console.log("Registering with:", value)
+        toast.success("Registration successful!", {
           description: JSON.stringify(value, null, 2),
           className: "whitespace-pre-wrap font-mono",
         })
         form.reset()
       } catch {
-        toast.error("Login failed. Please try again.")
+        toast.error("Registration failed. Please try again.")
       }
     },
   })
@@ -41,8 +42,8 @@ export default function LoginForm() {
     <div className="container px-4 mx-auto my-8 max-w-md">
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-xl">Welcome back</CardTitle>
-          <CardDescription>Login with your Apple or Google account</CardDescription>
+          <CardTitle className="text-xl">Create an account</CardTitle>
+          <CardDescription>Sign up with your Apple or Google account</CardDescription>
         </CardHeader>
         <CardContent>
           <form
@@ -66,7 +67,7 @@ export default function LoginForm() {
                         fill="currentColor"
                       />
                     </svg>
-                    Login with Apple
+                    Sign up with Apple
                   </Button>
                   <Button variant="outline" type="button" className="w-full">
                     <svg
@@ -79,7 +80,7 @@ export default function LoginForm() {
                         fill="currentColor"
                       />
                     </svg>
-                    Login with Google
+                    Sign up with Google
                   </Button>
                 </div>
               </Field>
@@ -87,6 +88,15 @@ export default function LoginForm() {
               <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
                 Or continue with
               </FieldSeparator>
+
+              {/* ✅ Name */}
+              <form.AppField name="name">
+                {(field) => (
+                  <field.Input
+                    label="Full Name"
+                  />
+                )}
+              </form.AppField>
 
               {/* ✅ Email */}
               <form.AppField name="email">
@@ -107,13 +117,23 @@ export default function LoginForm() {
                 )}
               </form.AppField>
 
+              {/* ✅ Confirm Password */}
+              <form.AppField name="confirmPassword">
+                {(field) => (
+                  <field.Input
+                    label="Confirm Password"
+                    type="password"
+                  />
+                )}
+              </form.AppField>
+
               {/* ✅ Submit */}
               <Field>
                 <Button type="submit" className="w-full">
-                  Login
+                  Create Account
                 </Button>
                 <FieldDescription className="text-center mt-2">
-                  Don&apos;t have an account? <Link href="/auth/register">Sign up</Link>
+                  Already have an account? <Link href="/auth/login">Sign in</Link>
                 </FieldDescription>
               </Field>
             </FieldGroup>

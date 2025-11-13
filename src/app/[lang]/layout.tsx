@@ -1,9 +1,10 @@
 import './globals.css';
 import { AppConfig } from "@/config/app-config";
 import { NextIntlClientProvider } from "next-intl";
-import { QueryProvider } from '@/core/provider/QueryProvider';
+import { QueryProvider } from '@/core/provider/query-provider';
 import { ThemeProvider } from 'next-themes';
 import Header from '@/components/custom/Header';
+import { Toaster } from '@/components/ui/sonner';
 
 export async function generateStaticParams() {
   return AppConfig.locales.map((lang: string) => ({ lang }));
@@ -31,6 +32,7 @@ export default async function RootLayout({
               locale={lang}
               messages={(await import(`../../shared/locale/${lang}.json`)).default}
             >
+              <Toaster richColors position='top-center'/>
               <div className="flex flex-col min-h-screen">
                 <Header />
                 <main className="flex-1">

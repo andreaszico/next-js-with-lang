@@ -4,6 +4,7 @@ import z from 'zod';
 export const Env = createEnv({
   server: {
     SERVER_APP_URL: z.string().optional(),
+    JWT_SECRET: z.string().optional(),
   },
   client: {
     NEXT_PUBLIC_APP_URL: z.string().optional(),
@@ -15,6 +16,7 @@ export const Env = createEnv({
   runtimeEnv: {
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     SERVER_APP_URL: process.env.SERVER_APP_URL,
+    JWT_SECRET: process.env.JWT_SECRET,
     NODE_ENV: process.env.NODE_ENV,
   },
 });

@@ -1,18 +1,24 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Field,
   FieldDescription,
   FieldGroup,
   FieldSeparator,
-} from "@/components/ui/field"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { toast } from "sonner"
-import { useAppForm } from "@/hooks/use-app-form"
-import { LoginRequest, loginSchema } from "../api/dto"
-import Link from "next/link"
-
+} from "@/components/ui/field";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { toast } from "sonner";
+import { useAppForm } from "@/hooks/use-app-form";
+import { LoginRequest, loginSchema } from "../api/dto";
+import Link from "next/link";
+import { useFormErrors } from "@/hooks/use-form-error";
 
 export default function LoginForm() {
   const form = useAppForm({
@@ -23,32 +29,36 @@ export default function LoginForm() {
     validators: {
       onSubmit: loginSchema,
     },
-    onSubmit: async ({ value }) => {
+    onSubmit: async ({ value, formApi: form }) => {
+      const { setFieldError, setFieldErrors } =
+        useFormErrors<LoginRequest>(form);
+
       try {
-        console.log("Logging in with:", value)
+        console.log("Logging in with:", value);
         toast.success("Login successful!", {
-          description: JSON.stringify(value, null, 2),
+          description: JSON.stringify({ value }, null, 2),
           className: "whitespace-pre-wrap font-mono",
-        })
-        form.reset()
+        });
       } catch {
-        toast.error("Login failed. Please try again.")
+        toast.error("Login failed. Please try again.");
       }
     },
-  })
+  });
 
   return (
     <div className="container px-4 mx-auto my-8 max-w-md">
       <Card>
         <CardHeader className="text-center">
           <CardTitle className="text-xl">Welcome back</CardTitle>
-          <CardDescription>Login with your Apple or Google account</CardDescription>
+          <CardDescription>
+            Login with your Apple or Google account
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <form
             onSubmit={(e) => {
-              e.preventDefault()
-              form.handleSubmit()
+              e.preventDefault();
+              form.handleSubmit();
             }}
             className="flex flex-col gap-6"
           >
@@ -91,19 +101,20 @@ export default function LoginForm() {
               {/* ✅ Email */}
               <form.AppField name="email">
                 {(field) => (
-                  <field.Input
-                    label="Email"
-                  />
+                  <>
+                    {JSON.stringify(field.state, null, 2)}
+                    <field.Input label="Email" />
+                  </>
                 )}
               </form.AppField>
 
               {/* ✅ Password */}
               <form.AppField name="password">
                 {(field) => (
-                  <field.Input
-                    label="Password"
-                    type="password"
-                  />
+                  <>
+                    {JSON.stringify(field.state, null, 2)}
+                    <field.Input label="Password" type="password" />
+                  </>
                 )}
               </form.AppField>
 
@@ -113,7 +124,8 @@ export default function LoginForm() {
                   Login
                 </Button>
                 <FieldDescription className="text-center mt-2">
-                  Don&apos;t have an account? <Link href="/auth/register">Sign up</Link>
+                  Don&apos;t have an account?{" "}
+                  <Link href="/auth/register">Sign up</Link>
                 </FieldDescription>
               </Field>
             </FieldGroup>
@@ -133,5 +145,5 @@ export default function LoginForm() {
         .
       </FieldDescription>
     </div>
-  )
+  );
 }

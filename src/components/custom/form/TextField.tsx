@@ -13,7 +13,14 @@ export function FormInput(props: FormControlProps) {
         name={field.name}
         value={field.state.value}
         onBlur={field.handleBlur}
-        onChange={e => field.handleChange(e.target.value)}
+        onChange={e => {
+          if (field.state.meta.errorMap) {
+            field.setErrorMap({
+              onChange: undefined,
+            })
+          }
+          field.handleChange(e.target.value)
+        }}        
         aria-invalid={isInvalid}
         type={props.type}
       />

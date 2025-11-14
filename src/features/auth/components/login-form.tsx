@@ -100,22 +100,12 @@ export default function LoginForm() {
 
               {/* ✅ Email */}
               <form.AppField name="email">
-                {(field) => (
-                  <>
-                    {JSON.stringify(field.state, null, 2)}
-                    <field.Input label="Email" />
-                  </>
-                )}
+                {(field) => <field.Input label="Email" />}
               </form.AppField>
 
               {/* ✅ Password */}
               <form.AppField name="password">
-                {(field) => (
-                  <>
-                    {JSON.stringify(field.state, null, 2)}
-                    <field.Input label="Password" type="password" />
-                  </>
-                )}
+                {(field) => <field.Input label="Password" type="password" />}
               </form.AppField>
 
               {/* ✅ Submit */}

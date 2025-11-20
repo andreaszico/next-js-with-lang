@@ -1,5 +1,5 @@
 import { QueryConfig } from '@/config/query-config';
-import { api } from '@/core/api/client';
+import { api, ResponseApi } from '@/core/api/client';
 // import { Example } from '@/shared/types/example';
 import { useQuery, queryOptions } from '@tanstack/react-query';
 
@@ -16,7 +16,7 @@ export const getExample = ({
   exampleId,
 }: {
   exampleId: string;
-}): Promise<{ data: Example }> => {
+}): Promise<ResponseApi<Example>> => {
   return api.get(`/example/${exampleId}`);
 };
 

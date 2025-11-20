@@ -1,4 +1,4 @@
-import { api } from "@/core/api/client"
+import { api, ResponseApi } from "@/core/api/client"
 import { queryOptions, useMutation, useQuery } from "@tanstack/react-query"
 import { GetProfileResponse, LoginRequest, LoginResponse, RegisterRequest, RegisterResponse } from "./dto"
 import { MutationConfig, QueryConfig } from "@/config/query-config"
@@ -25,15 +25,15 @@ type UseUserProfileOptions = {
   queryConfig?: QueryConfig<typeof getUserProfileQueryOptions>;
 };
 
-export const getUserProfile = (): Promise<{ data: GetProfileResponse }> => {
+export const getUserProfile = (): Promise<ResponseApi<GetProfileResponse>> => {
   return api.get(`/auth/me`);
 };
 
-export const loginWithEmailAndPassword = (payload: LoginRequest): Promise<{ data: LoginResponse }> => {
+export const loginWithEmailAndPassword = (payload: LoginRequest): Promise<ResponseApi<LoginResponse>> => {
     return api.post("/auth/login", payload)
 }
 
-export const registerWithEmailAndPassword = (payload: RegisterRequest): Promise<{ data: RegisterResponse }> => {
+export const registerWithEmailAndPassword = (payload: RegisterRequest): Promise<ResponseApi<RegisterResponse>> => {
     return api.post("/auth/register", payload)
 }
 

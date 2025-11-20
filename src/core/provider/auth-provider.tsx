@@ -10,9 +10,8 @@ type User = {
 
 type AuthContextType = {
   user: User;
+  setUser: React.Dispatch<React.SetStateAction<User>>;
   loading: boolean;
-  login: (email: string, password: string) => Promise<void>;
-  logout: () => Promise<void>;
   refetch: () => Promise<void>;
 };
 
@@ -38,29 +37,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     fetchSession();
   }, []);
 
-  const login = async (email: string, password: string) => {
-    const res = await fetch("/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
-
-    if (!res.ok) {
-      throw new Error("Login failed");
-    }
-
-    const data = await res.json();
-    setUser(data.user);
-  };
-
-  const logout = async () => {
-    await fetch("/api/auth/logout", { method: "POST" });
-    setUser(null);
-  };
-
   return (
     <AuthContext.Provider
-      value={{ user, loading, login, logout, refetch: fetchSession }}
+      value={{ user, setUser, loading, refetch: fetchSession }}
     >
       {children}
     </AuthContext.Provider>

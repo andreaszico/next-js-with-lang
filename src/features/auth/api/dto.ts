@@ -1,3 +1,5 @@
+import { Menu } from "@/shared/types/menu"
+import { User } from "@/shared/types/user"
 import z from "zod"
 
 export const loginSchema = z.object({
@@ -37,4 +39,11 @@ export interface RegisterResponse {
         email: string
         name: string
     }
+}
+
+export interface GetProfileResponse {
+    user: User;
+    roles: string[];
+    permissions: string[];
+    menus: Menu[];
 }

@@ -1,7 +1,7 @@
 import { api } from "@/core/api/client"
-import { useMutation } from "@tanstack/react-query"
-import { LoginRequest, LoginResponse, RegisterRequest, RegisterResponse } from "./dto"
-import { MutationConfig } from "@/config/query-config"
+import { queryOptions, useMutation, useQuery } from "@tanstack/react-query"
+import { GetProfileResponse, LoginRequest, LoginResponse, RegisterRequest, RegisterResponse } from "./dto"
+import { MutationConfig, QueryConfig } from "@/config/query-config"
 import { queryClient } from "@/lib/query-client"
 
 export const userQueryKey = ["auth", "user"] as const
@@ -12,6 +12,21 @@ type UseLoginParams = {
 
 type UseRegisterParams = {
   mutationConfig?: MutationConfig<typeof registerWithEmailAndPassword>;
+};
+
+export const getUserProfileQueryOptions = () => {
+  return queryOptions({
+    queryKey: ['profile'],
+    queryFn: () => getUserProfile(),
+  });
+};
+
+type UseUserProfileOptions = {
+  queryConfig?: QueryConfig<typeof getUserProfileQueryOptions>;
+};
+
+export const getUserProfile = (): Promise<{ data: GetProfileResponse }> => {
+  return api.get(`/auth/me`);
 };
 
 export const loginWithEmailAndPassword = (payload: LoginRequest): Promise<{ data: LoginResponse }> => {
@@ -53,5 +68,14 @@ export const useRegister = (params: UseRegisterParams = {}) => {
         context
       );
     },
+  });
+};
+
+export const useUserProfile = ({
+  queryConfig,
+}: UseUserProfileOptions) => {
+  return useQuery({
+    ...getUserProfileQueryOptions(),
+    ...queryConfig,
   });
 };
